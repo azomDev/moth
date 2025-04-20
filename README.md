@@ -33,7 +33,7 @@ The Moth syntax is close to Markdown. Documentation for it will be added here at
 
 ## Installation
 
-Installation instructions are in the making.
+I might try making it easier at some point, but for now you must use `cargo` to compile this into a binary you can use as `moth`.
 
 ## Contributing
 
