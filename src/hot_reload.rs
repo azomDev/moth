@@ -52,7 +52,7 @@ pub fn serve_http(http_port: u16, ws_port: u16) {
 		if path == "/" {
 			let ct = tiny_http::Header::from_bytes(b"Content-Type", b"text/html; charset=utf-8")
 				.unwrap();
-			let resp = Response::from_string(initial_html(ws_port)).with_header(ct);
+			let resp = Response::from_string(hot_reload_html(ws_port)).with_header(ct);
 			let _ = req.respond(resp);
 		} else {
 			// Try to read the file
@@ -99,83 +99,91 @@ pub fn notify(html_data: &str, clients: &ClientList) {
 	println!("Notified {} clients", locked.len());
 }
 
-fn initial_html(ws_port: u16) -> String {
-	let html = format!(
+fn hot_reload_html(ws_port: u16) -> String {
+	let end = format!(
+		r#"
+			<script>
+	            const ws = new WebSocket("ws://localhost:{ws_port}");
+	            ws.onmessage = (evt) => {{
+	                const start = performance.now();
+	                console.log("Received message");
+	                document.body.innerHTML = evt.data;
+	                const end = performance.now();
+	                console.log("DOM update took " + (end - start) + "ms");
+	            }};
+	        </script>
+        	<body></body>
+		</html>
+		"#,
+	);
+	return format!("{}{}", html_start(), end);
+}
+
+pub fn html_start() -> String {
+	let html = String::from(
 		r#"
     <!doctype html>
     <html>
         <head>
             <style>
-                .small-space {{
+                .small-space {
                     display: block;
                     height: 0.5em;
-                }}
-                img {{
+                }
+                img {
                     display: block;
                     max-width: 100%;
                     height: auto;
-                }}
-                body {{
+                }
+                body {
                     max-width: 1000px;
                     margin: 0 auto;
-                }}
+                }
                 h1,
                 h2,
                 h3,
                 h4,
                 h5,
-                h6 {{
+                h6 {
                     margin-top: 5px;
                     margin-bottom: 5px;
-                }}
-                p {{
+                }
+                p {
                     margin-top: 5px;
                     margin-bottom: 5px;
-                }}
-                .custom-br {{
+                }
+                .custom-br {
                     height: 15px;
                     display: block;
                     content: "";
-                }}
+                }
 
-                code {{
+                code {
                     background: #e0e0e0;
                     padding: 2px 4px;
                     border-radius: 4px;
                     font-family: monospace;
                     font-size: 14px;
-                }}
+                }
 
-                pre code {{
+                pre code {
                     background: none;
                     padding: 0;
                     border-radius: 0;
                     font-size: inherit;
-                }}
+                }
 
-                pre {{
+                pre {
                     background: #e0e0e0;
                     padding: 10px;
                     border-radius: 6px;
                     overflow-x: auto;
                     font-family: monospace;
                     font-size: 14px;
-                }}
+                }
             </style>
         </head>
-        <script>
-            const ws = new WebSocket("ws://localhost:{ws_port}");
-            ws.onmessage = (evt) => {{
-                const start = performance.now();
-                console.log("Received message");
-                document.body.innerHTML = evt.data;
-                const end = performance.now();
-                console.log("DOM update took " + (end - start) + "ms");
-            }};
-        </script>
-        <body></body>
-    </html>
-    "#
+    "#,
 	);
 
 	return html;

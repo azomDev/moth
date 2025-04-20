@@ -3,7 +3,7 @@ mod idk;
 mod parsing;
 mod types;
 
-use hot_reload::serve_hot_reload;
+use hot_reload::{html_start, serve_hot_reload};
 use idk::transpile;
 use std::{fs::write, path::Path};
 
@@ -59,8 +59,15 @@ fn main() {
 		}
 		Commands::Transpile(transpile_args) => {
 			let html_content = transpile(&transpile_args.file, !transpile_args.no_base_64);
+			let full_html = format!(
+				"{}{}{}{}",
+				html_start(),
+				"<body>",
+				html_content,
+				"</body></html>"
+			);
 			let output_path = Path::new(&transpile_args.out_file);
-			match write(output_path, html_content) {
+			match write(output_path, full_html) {
 				Ok(_) => println!("File successfully written to {}", transpile_args.out_file),
 				Err(e) => eprintln!("Error writing file: {}", e),
 			}
