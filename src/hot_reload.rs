@@ -27,7 +27,7 @@ pub fn serve_hot_reload(file_path: String, ws_port: u16, http_port: u16) {
 	}
 
 	// Watch for file changes
-	let mut hotwatch = Hotwatch::new_with_custom_delay(Duration::from_millis(10))
+	let mut hotwatch = Hotwatch::new_with_custom_delay(Duration::from_millis(1))
 		.expect("hotwatch failed to initialize!");
 	hotwatch
 		.watch(file_path.clone(), move |event| {
