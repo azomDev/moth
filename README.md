@@ -29,7 +29,7 @@ Options:
 
 ## Syntax
 
-The Moth syntax is close to Markdown. Documentation for it will be added here soon.
+The Moth syntax is close to Markdown. Documentation for it will be added here at some point.
 
 ## Installation
 
