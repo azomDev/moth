@@ -1,0 +1,42 @@
+# Custom Markdown Test File
+
+This file demonstrates various custom markdown features including inline HTML, equations, emphasis, code blocks, lists, and images.
+
+<html>
+	<div style="color: red;">This is a red div</div>
+	<b>Bold text</b>
+	<p>A paragraph inside a raw HTML block.</p>
+</html>
+
+This is a paragraph with embedded HTML:
+We have <html><b>Bold text</b></html> and equations $a + b = \sqrt{a}$ with *italic*, **bold**, ***bold italic*** and a quick link: <https://example.com>.
+
+You can also add some inline code: `some code here`, and normal *text with **mixed** emphasis* in it. (yes I know the inline code is broken currently)
+
+By default, the parser follows the line breaks in the moth file, as opposed to CommonMark where a single line break continues the same paragraph.
+Like this, that is on the line after.
+
+But this line and the next can be together with a backslash like this: \
+Now we continue on the same line.
+
+### List Example
+
+1. **List item title**
+	- We use tabs to indent the list body, and we can continue here.
+	- Even if we skip a line, we continue in the list body.
+
+2. **Another item title**
+	- Here's a nested list:
+		* list item 1
+		* list item 2
+		* list item 3
+
+	some text in the body
+	```
+	some code
+	while we are at it
+	that is still in the body of the list item
+	```
+
+We can also include images, though they can't be resized for now
+![myimage.jpg]

@@ -49,12 +49,15 @@ pub fn serve_http(http_port: u16, ws_port: u16) {
 	for req in server.incoming_requests() {
 		let path = req.url();
 
-		if path.starts_with("/img/") {
-			// Strip "/img/" from the path to get the file name
-			let file_path = format!("img{}", &path[4..]);
-
+		if path == "/" {
+			let ct = tiny_http::Header::from_bytes(b"Content-Type", b"text/html; charset=utf-8")
+				.unwrap();
+			let resp = Response::from_string(initial_html(ws_port)).with_header(ct);
+			let _ = req.respond(resp);
+		} else {
+			println!("Path: {}", path);
 			// Try to read the file
-			if let Ok(mut file) = fs::File::open(file_path) {
+			if let Ok(mut file) = fs::File::open(format!(".{path}")) {
 				let mut file_contents = Vec::new();
 				if file.read_to_end(&mut file_contents).is_ok() {
 					// Serve the PNG image with the correct Content-Type
@@ -72,12 +75,6 @@ pub fn serve_http(http_port: u16, ws_port: u16) {
 					Response::from_string("404 Not Found").with_status_code(StatusCode(404));
 				req.respond(response).unwrap();
 			}
-		} else {
-			// Default behavior for non-image requests
-			let ct = tiny_http::Header::from_bytes(b"Content-Type", b"text/html; charset=utf-8")
-				.unwrap();
-			let resp = Response::from_string(initial_html(ws_port)).with_header(ct);
-			let _ = req.respond(resp);
 		}
 	}
 }
