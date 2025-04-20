@@ -76,7 +76,7 @@ pub fn parse_markdown_line(line: &str) -> String {
 		if in_code {
 			if chars[i] == '`' {
 				// close code
-				result.push_str("</code></pre>");
+				result.push_str("</code>");
 				in_code = false;
 				i += 1;
 			} else {
@@ -102,7 +102,7 @@ pub fn parse_markdown_line(line: &str) -> String {
 		match chars[i] {
 			'`' => {
 				// start code
-				result.push_str("<pre><code>");
+				result.push_str("<code>");
 				in_code = true;
 				i += 1;
 			}

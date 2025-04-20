@@ -27,7 +27,7 @@ pub fn serve_hot_reload(file_path: String, ws_port: u16, http_port: u16) {
 	}
 
 	// Watch for file changes
-	let mut hotwatch = Hotwatch::new_with_custom_delay(Duration::from_millis(100))
+	let mut hotwatch = Hotwatch::new_with_custom_delay(Duration::from_millis(10))
 		.expect("hotwatch failed to initialize!");
 	hotwatch
 		.watch(file_path.clone(), move |event| {
@@ -55,7 +55,6 @@ pub fn serve_http(http_port: u16, ws_port: u16) {
 			let resp = Response::from_string(initial_html(ws_port)).with_header(ct);
 			let _ = req.respond(resp);
 		} else {
-			println!("Path: {}", path);
 			// Try to read the file
 			if let Ok(mut file) = fs::File::open(format!(".{path}")) {
 				let mut file_contents = Vec::new();
@@ -138,8 +137,24 @@ fn initial_html(ws_port: u16) -> String {
                     display: block;
                     content: "";
                 }}
+
+                code {{
+                    background: #e0e0e0;
+                    padding: 2px 4px;
+                    border-radius: 4px;
+                    font-family: monospace;
+                    font-size: 14px;
+                }}
+
+                pre code {{
+                    background: none;
+                    padding: 0;
+                    border-radius: 0;
+                    font-size: inherit;
+                }}
+
                 pre {{
-                    background: #f6f8fa;
+                    background: #e0e0e0;
                     padding: 10px;
                     border-radius: 6px;
                     overflow-x: auto;

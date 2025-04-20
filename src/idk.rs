@@ -136,14 +136,14 @@ pub fn process_layer<'a>(
 					}
 				}
 				'`' => {
-					if line_chars.next() == Some('`') && line_chars.next() == Some('`') {
+					if line == "```" {
 						current_block_type = Some(BlockType::CODE);
 						output.push_str("<pre><code>");
 						continue;
 					}
 				}
 				'<' => {
-					if line.starts_with("<html>") {
+					if line == "<html>" {
 						current_block_type = Some(BlockType::HTML);
 						continue;
 					}

@@ -1,4 +1,4 @@
-# Custom Markdown Test File
+# Custom Moth Test File
 
 This file demonstrates various custom markdown features including inline HTML, equations, emphasis, code blocks, lists, and images.
 
@@ -9,9 +9,9 @@ This file demonstrates various custom markdown features including inline HTML, e
 </html>
 
 This is a paragraph with embedded HTML:
-We have <html><b>Bold text</b></html> and equations $a + b = \sqrt{a}$ with *italic*, **bold**, ***bold italic*** and a quick link: <https://example.com>.
+<html><b>Bold text</b></html> and equations $a + b = \sqrt{a}$ with *italic*, **bold**, ***bold italic*** and a quick link: <https://example.com>.
 
-You can also add some inline code: `some code here`, and normal *text with **mixed** emphasis* in it. (yes I know the inline code is broken currently)
+You can also add some inline code: `some code here`, and normal *text with **mixed** emphasis* in it.
 
 By default, the parser follows the line breaks in the moth file, as opposed to CommonMark where a single line break continues the same paragraph.
 Like this, that is on the line after.

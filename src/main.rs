@@ -55,7 +55,6 @@ fn main() {
 
 	match args.command {
 		Commands::Serve(serve_args) => {
-			println!("{}", serve_args.ws_port);
 			serve_hot_reload(serve_args.file, serve_args.ws_port, serve_args.http_port);
 		}
 		Commands::Transpile(transpile_args) => {
