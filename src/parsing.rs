@@ -1,6 +1,8 @@
 use base64::{Engine, engine::general_purpose};
 use katex::OutputType;
 
+use crate::htmlerror;
+
 pub fn parse_heading(line: &str) -> String {
 	// pub fn parse_heading(line: &str) -> String {
 	let mut num_hashes: u32 = 0;
@@ -162,13 +164,19 @@ pub fn parse_markdown_line(line: &str) -> String {
 					// Found closing '$', parse the equation between
 					let equation: String = chars[i + 1..eq_end].iter().collect();
 					// Render the equation using KaTeX
-					// let rendered_eq = render(&equation).unwrap();
 					let opts = katex::Opts::builder()
 						.output_type(OutputType::Mathml)
 						.build()
 						.unwrap();
-					let rendered_eq = katex::render_with_opts(&equation, &opts).unwrap();
-					result.push_str(&format!("<span class=\"katex\">{}</span>", rendered_eq));
+					match katex::render_with_opts(&equation, &opts) {
+						Ok(rendered_eq) => {
+							result
+								.push_str(&format!("<span class=\"katex\">{}</span>", rendered_eq));
+						}
+						Err(err) => {
+							return htmlerror!("Error rendering equation: {}", err);
+						}
+					}
 					i = eq_end + 1;
 				} else {
 					// Unmatched '$', treat literally

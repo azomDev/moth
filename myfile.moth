@@ -3,12 +3,12 @@
 This file demonstrates various custom markdown features including inline HTML, equations, emphasis, code blocks, lists, and images.
 
 <html>
-	<div style="color: red;">This is a red div</div>
+	<div style="color: blue;">This is a blue div</div>
 	<b>Bold text</b>
 	<p>A paragraph inside a raw HTML block.</p>
 </html>
 
-This is a paragraph with embedded HTML:
+This is a paragraph with embedded HTML (the first bold text):
 <html><b>Bold text</b></html> and equations $a + b = \sqrt{a}$ with *italic*, **bold**, ***bold italic*** and a quick link: <https://example.com>.
 
 You can also add some inline code: `some code here`, and normal *text with **mixed** emphasis* in it.
@@ -18,6 +18,11 @@ Like this, that is on the line after.
 
 But this line and the next can be together with a backslash like this: \
 Now we continue on the same line.
+(Notice the space before the backslash in the moth file? Yeah i'm working on that ._.)
+
+More cool math because why not:
+$\ket{\psi} = \frac{1}{\sqrt{2}} \big(\ket{0}+\ket{1}\big) = \frac{1}{\sqrt{2}}\begin{pmatrix}1\\1\end{pmatrix} = \ket{+}$
+
 
 ### List Example
 

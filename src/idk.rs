@@ -1,6 +1,7 @@
 use std::{fs, time::Instant};
 
 use crate::{
+	htmlerror,
 	parsing::{image_parser, parse_heading, parse_markdown_line},
 	types::{BlockType, LineTracker, ListType},
 };
@@ -136,7 +137,7 @@ pub fn process_layer<'a>(
 					}
 				}
 				'`' => {
-					if line == "```" {
+					if line.starts_with("```") {
 						current_block_type = Some(BlockType::CODE);
 						output.push_str("<pre><code>");
 						continue;
@@ -182,7 +183,7 @@ pub fn process_layer<'a>(
 	}
 
 	if !current_block_type.is_none() {
-		panic!("asdf");
+		return htmlerror!("Block was not closed");
 	}
 
 	return output;

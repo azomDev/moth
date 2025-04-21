@@ -166,13 +166,6 @@ pub fn html_start() -> String {
                     font-size: 14px;
                 }
 
-                pre code {
-                    background: none;
-                    padding: 0;
-                    border-radius: 0;
-                    font-size: inherit;
-                }
-
                 pre {
                     background: #e0e0e0;
                     padding: 10px;

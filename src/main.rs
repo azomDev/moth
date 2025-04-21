@@ -2,6 +2,7 @@ mod hot_reload;
 mod idk;
 mod parsing;
 mod types;
+mod utils;
 
 use hot_reload::{html_start, serve_hot_reload};
 use idk::transpile;
