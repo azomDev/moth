@@ -3,7 +3,7 @@
 **Moth** is a fast CLI tool for converting `.moth` files — a markdown-inspired format — into HTML. It supports inline math, embedded images, raw HTML blocks, and live reload for rapid editing.
 
 > [!IMPORTANT]
-> Moth is currently in its early stages. If you find any problem/bugs, feel free to open an issue. However, I won't be taking any feature requests for now.
+> Moth is currently in its early stages. If you find any problem/bugs, feel free to open an issue. However, I won't be taking any feature requests for now as this is mainly a personal project I am making available to everyone.
 
 
 ## Usage
